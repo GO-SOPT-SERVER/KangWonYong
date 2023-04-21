@@ -1,6 +1,5 @@
 package com.sopt.kwy.soptseminar.domain;
 
-import com.sopt.kwy.soptseminar.controller.book.response.BookResponseDto;
 import lombok.Getter;
 
 @Getter
@@ -16,10 +15,6 @@ public class Book {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public BookResponseDto toResponse() {
-        return new BookResponseDto(this.id, this.title, this.code);
     }
 
     @Override

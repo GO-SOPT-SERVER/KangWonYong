@@ -21,14 +21,14 @@ public class BookService {
     }
 
     public BookResponseDto getBook(int id) {
-        return books.get(id - 1).toResponse();
+        return BookResponseDto.toResponseDto(books.get(id - 1));
     }
 
     public BookResponseDto searchBook(String name) {
         return books.stream()
                 .filter(book -> book.getTitle().equals(name))
                 .findAny()
-                .map(book -> book.toResponse())
+                .map(BookResponseDto::toResponseDto)
                 .get();
     }
 }
