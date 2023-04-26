@@ -10,10 +10,11 @@ import static com.sopt.kwy.soptseminar.SoptSeminarApplication.userList;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/user")
 public class UserController {
     private final UserService userService;
 
-    @PostMapping("/user")
+    @PostMapping("")
     public String register(@RequestBody final RegisterRequestDto request) {
         Long userId = userService.register(request);
         System.out.println(userList.get(userId.intValue() - 1).toString());
@@ -21,7 +22,7 @@ public class UserController {
         return "유저 등록이 완료됐습니다.";
     }
 
-    @GetMapping("/user/{userId}")
+    @GetMapping("/{userId}")
     public String getOne(@PathVariable final Long userId) {
         System.out.println("요청 유저 아이디: " + userId);
 
@@ -30,7 +31,7 @@ public class UserController {
         return "유저 조회 성공";
     }
 
-    @GetMapping("/user/search")
+    @GetMapping("/search")
     public String search(@RequestParam final String name) {
         System.out.println("유저 이름 검색 인자: " + name);
 
