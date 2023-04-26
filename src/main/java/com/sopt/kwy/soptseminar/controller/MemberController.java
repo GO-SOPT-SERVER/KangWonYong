@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("member")
+@RequestMapping("/member")
 public class MemberController {
     @GetMapping("/{memberId}")
     public String hello(@PathVariable final Long memberId) {
