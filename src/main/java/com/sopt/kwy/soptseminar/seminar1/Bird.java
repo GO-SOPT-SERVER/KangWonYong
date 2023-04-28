@@ -4,5 +4,5 @@ public abstract class Bird {
     public String name;
     public int age;
 
-    abstract public void bark();
+    abstract public void twit();
 }

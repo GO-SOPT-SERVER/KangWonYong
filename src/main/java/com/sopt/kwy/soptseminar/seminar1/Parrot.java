@@ -11,12 +11,12 @@ public class Parrot extends Bird implements Flyable {
     }
 
     @Override
-    public void bark() {
+    public void twit() {
         System.out.println("짹짹");
     }
 
     // 오버로딩
-    public void bark(String sound) {
+    public void twit(String sound) {
         System.out.println(sound);
     }
 
