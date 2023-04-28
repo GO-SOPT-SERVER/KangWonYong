@@ -4,7 +4,13 @@ package com.sopt.kwy.soptseminar.controller.user;
 import com.sopt.kwy.soptseminar.controller.user.dto.request.RegisterRequestDto;
 import com.sopt.kwy.soptseminar.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import static com.sopt.kwy.soptseminar.SoptSeminarApplication.userList;
 
@@ -14,7 +20,7 @@ import static com.sopt.kwy.soptseminar.SoptSeminarApplication.userList;
 public class UserController {
     private final UserService userService;
 
-    @PostMapping("")
+    @PostMapping()
     public String register(@RequestBody final RegisterRequestDto request) {
         Long userId = userService.register(request);
         System.out.println(userList.get(userId.intValue() - 1).toString());
