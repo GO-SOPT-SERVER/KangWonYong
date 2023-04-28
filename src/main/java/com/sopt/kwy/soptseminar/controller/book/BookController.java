@@ -20,7 +20,7 @@ import static com.sopt.kwy.soptseminar.SoptSeminarApplication.books;
 public class BookController {
     private final BookService bookService;
 
-    @PostMapping()
+    @PostMapping
     public String register(@RequestBody final BookRequestDto request) {
         Long bookId = bookService.register(request);
         System.out.println(books.get(bookId.intValue() - 1).toString());

@@ -20,7 +20,7 @@ import static com.sopt.kwy.soptseminar.SoptSeminarApplication.userList;
 public class UserController {
     private final UserService userService;
 
-    @PostMapping()
+    @PostMapping
     public String register(@RequestBody final RegisterRequestDto request) {
         Long userId = userService.register(request);
         System.out.println(userList.get(userId.intValue() - 1).toString());
