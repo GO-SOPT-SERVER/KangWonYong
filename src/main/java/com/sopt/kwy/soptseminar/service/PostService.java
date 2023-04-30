@@ -5,6 +5,7 @@ import com.sopt.kwy.soptseminar.controller.post.dto.response.PostResDto;
 import com.sopt.kwy.soptseminar.domian.Post;
 import com.sopt.kwy.soptseminar.infrastructure.PostRepository;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -31,5 +32,22 @@ public class PostService {
                 .stream()
                 .map(PostResDto::to)
                 .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public void updatePost(Long userId, Long postId, PostReqDto body) {
+        Post post = getPost(postId);
+        post.update(body.getTitle(), body.getContent());
+    }
+
+    @Transactional
+    public void deletePost(Long userId, Long postId) {
+        postRepository.deleteById(postId);
+    }
+
+    @Transactional
+    public Post getPost(Long postId) {
+        Optional<Post> post = postRepository.findById(postId);
+        return post.get();
     }
 }

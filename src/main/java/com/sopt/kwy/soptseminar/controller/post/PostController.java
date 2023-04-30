@@ -43,9 +43,14 @@ public class PostController {
         );
     }
 
-    @PutMapping("/{userId}")
+    @PutMapping("/{userId}/{postId}")
     @ResponseStatus(HttpStatus.OK)
-    public ApiResponseDto updatePost(@PathVariable Long userId) {
+    public ApiResponseDto updatePost(
+            @PathVariable Long userId,
+            @PathVariable Long postId,
+            @RequestBody PostReqDto body
+    ) {
+        postService.updatePost(userId, postId, body);
         return ApiResponseDto.success(SuccessStatus.POST_UPDATE_SUCCESS);
     }
 
@@ -55,6 +60,7 @@ public class PostController {
             @PathVariable Long userId,
             @PathVariable Long postId
     ) {
+        postService.deletePost(userId, postId);
         return ApiResponseDto.success(SuccessStatus.POST_DELETE_SUCCESS);
     }
 }
