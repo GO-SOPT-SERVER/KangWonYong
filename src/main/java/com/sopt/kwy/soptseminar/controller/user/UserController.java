@@ -23,6 +23,6 @@ public class UserController {
     @ResponseStatus(HttpStatus.CREATED)
     public ApiResponseDto registerUser(@RequestBody @Valid UserReqDto body) {
         userService.registerUser(body);
-        return ApiResponseDto.success(SuccessStatus.POST_CREATED_SUCCESS);
+        return ApiResponseDto.success(SuccessStatus.SIGNUP_SUCCESS);
     }
 }

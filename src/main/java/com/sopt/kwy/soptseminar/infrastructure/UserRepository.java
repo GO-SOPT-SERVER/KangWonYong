@@ -5,4 +5,6 @@ import org.springframework.data.repository.Repository;
 
 public interface UserRepository extends Repository<User, Long> {
     void save(User user);
+
+    User findByAndNicknameOrEmail(String name, String email);
 }
