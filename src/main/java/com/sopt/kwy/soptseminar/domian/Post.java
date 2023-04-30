@@ -1,8 +1,8 @@
 package com.sopt.kwy.soptseminar.domian;
 
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,7 +27,10 @@ public class Post {
     @Column(nullable = false)
     private String content;
 
-    @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
+    @Column(insertable = false)
+    private Date createdAt;
+
+    @ManyToOne
     @JoinColumn(name = "user_id", insertable = false, updatable = false)
     private User user;
 
