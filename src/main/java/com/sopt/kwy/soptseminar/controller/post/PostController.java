@@ -25,9 +25,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class PostController {
     private final PostService postService;
 
-    @PostMapping
+    @PostMapping("/{userId}")
     @ResponseStatus(HttpStatus.CREATED)
-    public ApiResponseDto createPost(@RequestBody PostReqDto body) {
+    public ApiResponseDto createPost(
+            @PathVariable Long userId,
+            @RequestBody PostReqDto body
+    ) {
+        postService.createPost(userId, body);
         return ApiResponseDto.success(SuccessStatus.POST_CREATED_SUCCESS);
     }
 
