@@ -5,7 +5,6 @@ import com.sopt.kwy.soptseminar.controller.post.dto.request.PostReqDto;
 import com.sopt.kwy.soptseminar.controller.post.dto.response.PostResDto;
 import com.sopt.kwy.soptseminar.exception.SuccessStatus;
 import com.sopt.kwy.soptseminar.service.PostService;
-import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -38,7 +37,10 @@ public class PostController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public ApiResponseDto<List<PostResDto>> getPosts() {
-        return ApiResponseDto.success(SuccessStatus.POSTS_GET_SUCCESS, new ArrayList<>());
+        return ApiResponseDto.success(
+                SuccessStatus.POSTS_GET_SUCCESS,
+                postService.getPosts()
+        );
     }
 
     @PutMapping("/{userId}")
