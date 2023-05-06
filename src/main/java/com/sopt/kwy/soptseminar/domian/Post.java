@@ -1,6 +1,5 @@
 package com.sopt.kwy.soptseminar.domian;
 
-import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,7 +15,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Post {
+public class Post extends AuditingTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -26,9 +25,6 @@ public class Post {
 
     @Column(nullable = false)
     private String content;
-
-    @Column(insertable = false)
-    private Date createdAt;
 
     @ManyToOne
     @JoinColumn(name = "user_id", insertable = false, updatable = false)

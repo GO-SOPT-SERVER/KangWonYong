@@ -3,7 +3,7 @@ package com.sopt.kwy.soptseminar.controller.post.dto.response;
 import com.sopt.kwy.soptseminar.controller.user.dto.response.UserResDto;
 import com.sopt.kwy.soptseminar.domian.Post;
 import com.sopt.kwy.soptseminar.domian.User;
-import java.util.Date;
+import java.time.LocalDateTime;
 import lombok.Getter;
 
 @Getter
@@ -11,10 +11,10 @@ public class PostResDto {
     private Long id;
     private String title;
     private String content;
-    private Date createdAt;
+    private LocalDateTime createdAt;
     private UserResDto user;
 
-    public PostResDto(Long id, String title, String content, Date createdAt, User user) {
+    public PostResDto(Long id, String title, String content, LocalDateTime createdAt, User user) {
         this.id = id;
         this.title = title;
         this.content = content;

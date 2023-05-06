@@ -13,6 +13,8 @@ repositories {
 }
 
 dependencies {
+	// Health Check
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	// mysql --version
 	implementation 'mysql:mysql-connector-java:8.0.32'
 	// lombok
