@@ -21,7 +21,7 @@ public class UserController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ApiResponseDto registerUser(@RequestBody @Valid UserReqDto body) {
+    public ApiResponseDto registerUser(@RequestBody @Valid final UserReqDto body) {
         userService.registerUser(body);
         return ApiResponseDto.success(SuccessStatus.SIGNUP_SUCCESS);
     }

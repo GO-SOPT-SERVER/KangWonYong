@@ -27,8 +27,8 @@ public class PostController {
     @PostMapping("/{userId}")
     @ResponseStatus(HttpStatus.CREATED)
     public ApiResponseDto createPost(
-            @PathVariable Long userId,
-            @RequestBody PostReqDto body
+            @PathVariable final Long userId,
+            @RequestBody final PostReqDto body
     ) {
         postService.createPost(userId, body);
         return ApiResponseDto.success(SuccessStatus.POST_CREATED_SUCCESS);
@@ -46,9 +46,9 @@ public class PostController {
     @PutMapping("/{userId}/{postId}")
     @ResponseStatus(HttpStatus.OK)
     public ApiResponseDto updatePost(
-            @PathVariable Long userId,
-            @PathVariable Long postId,
-            @RequestBody PostReqDto body
+            @PathVariable final Long userId,
+            @PathVariable final Long postId,
+            @RequestBody final PostReqDto body
     ) {
         postService.updatePost(userId, postId, body);
         return ApiResponseDto.success(SuccessStatus.POST_UPDATE_SUCCESS);
@@ -57,8 +57,8 @@ public class PostController {
     @DeleteMapping("/{userId}/{postId}")
     @ResponseStatus(HttpStatus.OK)
     public ApiResponseDto removePost(
-            @PathVariable Long userId,
-            @PathVariable Long postId
+            @PathVariable final Long userId,
+            @PathVariable final Long postId
     ) {
         postService.deletePost(userId, postId);
         return ApiResponseDto.success(SuccessStatus.POST_DELETE_SUCCESS);
