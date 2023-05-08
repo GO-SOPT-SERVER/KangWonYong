@@ -28,7 +28,6 @@ public class PostService {
         postRepository.save(newPost);
     }
 
-    @Transactional
     public List<PostResDto> getPosts() {
         return postRepository.findAllBy()
                 .stream()
@@ -47,8 +46,7 @@ public class PostService {
         getPost(postId, userId);
         postRepository.deleteById(postId);
     }
-
-    @Transactional
+    
     public Post getPost(Long postId, Long userId) {
         Post post = postRepository.findById(postId);
         if (post == null) throw new SoptNotFoundException(ErrorStatus.NOT_FOUND_POST_EXCEPTION);
