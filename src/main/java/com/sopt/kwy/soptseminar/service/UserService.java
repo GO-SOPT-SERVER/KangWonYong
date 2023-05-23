@@ -1,6 +1,8 @@
 package com.sopt.kwy.soptseminar.service;
 
+import com.sopt.kwy.soptseminar.common.exception.SoptBadRequestException;
 import com.sopt.kwy.soptseminar.common.exception.SoptConflictException;
+import com.sopt.kwy.soptseminar.common.exception.SoptNotFoundException;
 import com.sopt.kwy.soptseminar.controller.user.dto.request.UserReqDto;
 import com.sopt.kwy.soptseminar.domian.User;
 import com.sopt.kwy.soptseminar.exception.ErrorStatus;
@@ -29,5 +31,16 @@ public class UserService {
                 .password(body.getPassword())
                 .build();
         userRepository.save(newUser);
+    }
+
+    @Transactional
+    public Long login(UserReqDto body) {
+        User user = userRepository.findByEmail(body.getEmail())
+                .orElseThrow(() -> new SoptNotFoundException(ErrorStatus.NOT_FOUND_USER_EXCEPTION));
+        if (!user.getPassword().equals(body.getPassword())) {
+            throw new SoptBadRequestException(ErrorStatus.INVALID_PASSWORD_EXCEPTION);
+        }
+
+        return user.getId();
     }
 }

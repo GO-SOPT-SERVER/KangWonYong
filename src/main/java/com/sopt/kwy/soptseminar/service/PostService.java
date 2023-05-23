@@ -5,8 +5,10 @@ import com.sopt.kwy.soptseminar.common.exception.SoptNotFoundException;
 import com.sopt.kwy.soptseminar.controller.post.dto.request.PostReqDto;
 import com.sopt.kwy.soptseminar.controller.post.dto.response.PostResDto;
 import com.sopt.kwy.soptseminar.domian.Post;
+import com.sopt.kwy.soptseminar.domian.User;
 import com.sopt.kwy.soptseminar.exception.ErrorStatus;
 import com.sopt.kwy.soptseminar.infrastructure.PostRepository;
+import com.sopt.kwy.soptseminar.infrastructure.UserRepository;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -17,13 +19,17 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class PostService {
     private final PostRepository postRepository;
+    private final UserRepository userRepository;
 
     @Transactional
     public void createPost(Long userId, PostReqDto body) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new SoptNotFoundException(ErrorStatus.NOT_FOUND_USER_EXCEPTION));
+
         Post newPost = Post.builder()
                 .title(body.getTitle())
                 .content(body.getContent())
-                .userId(userId)
+                .userId(user.getId())
                 .build();
         postRepository.save(newPost);
     }
@@ -46,11 +52,15 @@ public class PostService {
         getPost(postId, userId);
         postRepository.deleteById(postId);
     }
-    
+
     public Post getPost(Long postId, Long userId) {
-        Post post = postRepository.findById(postId);
-        if (post == null) throw new SoptNotFoundException(ErrorStatus.NOT_FOUND_POST_EXCEPTION);
-        if (!userId.equals(post.getUserId())) throw new SoptForbiddenException(ErrorStatus.FORBIDDEN_EXCEPTION);
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new SoptNotFoundException(ErrorStatus.NOT_FOUND_POST_EXCEPTION));
+
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new SoptNotFoundException(ErrorStatus.NOT_FOUND_USER_EXCEPTION));
+
+        if (!user.getId().equals(post.getUserId())) throw new SoptForbiddenException(ErrorStatus.FORBIDDEN_EXCEPTION);
         return post;
     }
 }

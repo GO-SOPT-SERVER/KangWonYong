@@ -1,6 +1,8 @@
 package com.sopt.kwy.soptseminar.controller.post;
 
 import com.sopt.kwy.soptseminar.common.dto.ApiResponseDto;
+import com.sopt.kwy.soptseminar.config.jwt.JwtService;
+import com.sopt.kwy.soptseminar.config.resolver.UserId;
 import com.sopt.kwy.soptseminar.controller.post.dto.request.PostReqDto;
 import com.sopt.kwy.soptseminar.controller.post.dto.response.PostResDto;
 import com.sopt.kwy.soptseminar.exception.SuccessStatus;
@@ -23,11 +25,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class PostController {
     private final PostService postService;
+    private final JwtService jwtService;
 
-    @PostMapping("/{userId}")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ApiResponseDto createPost(
-            @PathVariable final Long userId,
+            @UserId Long userId,
             @RequestBody final PostReqDto body
     ) {
         postService.createPost(userId, body);
@@ -43,10 +46,10 @@ public class PostController {
         );
     }
 
-    @PutMapping("/{userId}/{postId}")
+    @PutMapping("{postId}")
     @ResponseStatus(HttpStatus.OK)
     public ApiResponseDto updatePost(
-            @PathVariable final Long userId,
+            @UserId Long userId,
             @PathVariable final Long postId,
             @RequestBody final PostReqDto body
     ) {
@@ -54,10 +57,10 @@ public class PostController {
         return ApiResponseDto.success(SuccessStatus.POST_UPDATE_SUCCESS);
     }
 
-    @DeleteMapping("/{userId}/{postId}")
+    @DeleteMapping("/{postId}")
     @ResponseStatus(HttpStatus.OK)
     public ApiResponseDto removePost(
-            @PathVariable final Long userId,
+            @UserId Long userId,
             @PathVariable final Long postId
     ) {
         postService.deletePost(userId, postId);
